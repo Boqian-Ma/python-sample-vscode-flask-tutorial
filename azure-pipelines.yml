@@ -23,7 +23,7 @@ stages:
   - stage: test-stage
     displayName: Testing YAML
 
-    jobe:
+    jobs:
       - job: test-job
         displayName: Tes Job
         steps:
@@ -41,3 +41,13 @@ stages:
               pip install pytest pytest-azurepipelines
               pytest
             displayName: "pytest"
+  - stage: emptystage
+    displayName: Empty stage
+
+    jobs:
+      - job: empty-job
+        displayName: empty job
+        steps:
+          - script: |
+              echo "lol"
+            displayName: "empty task"
