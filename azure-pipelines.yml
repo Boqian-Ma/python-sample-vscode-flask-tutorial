@@ -7,7 +7,7 @@ trigger:
   - master
 
 stages:
-  - stage: test-stage
+  - stage: test_stage
     displayName: Testing YAML
 
     pool:
@@ -25,7 +25,7 @@ stages:
             python.version: "3.7"
 
       jobs:
-        - job: test-job
+        - job: test_job
           displayName: Tes Job
           steps:
             - task: UsePythonVersion@0
@@ -43,11 +43,11 @@ stages:
                 pytest
               displayName: "pytest"
 
-  - stage: emptystage
+  - stage: empty_stage
     displayName: Empty stage
 
     jobs:
-      - job: empty-job
+      - job: empty_job
         displayName: empty job
         steps:
           - script: |
