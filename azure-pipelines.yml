@@ -6,41 +6,43 @@
 trigger:
   - master
 
-pool:
-  vmImage: ubuntu-latest
-strategy:
-  matrix:
-    Python27:
-      python.version: "2.7"
-    Python35:
-      python.version: "3.5"
-    Python36:
-      python.version: "3.6"
-    Python37:
-      python.version: "3.7"
-
 stages:
   - stage: test-stage
     displayName: Testing YAML
 
-    jobs:
-      - job: test-job
-        displayName: Tes Job
-        steps:
-          - task: UsePythonVersion@0
-            inputs:
-              versionSpec: "$(python.version)"
-            displayName: "Use Python $(python.version)"
+    pool:
+      vmImage: ubuntu-latest
 
-          - script: |
-              python -m pip install --upgrade pip
-              pip install -r requirements.txt
-            displayName: "Install dependencies"
+      strategy:
+        matrix:
+          Python27:
+            python.version: "2.7"
+          Python35:
+            python.version: "3.5"
+          Python36:
+            python.version: "3.6"
+          Python37:
+            python.version: "3.7"
 
-          - script: |
-              pip install pytest pytest-azurepipelines
-              pytest
-            displayName: "pytest"
+      jobs:
+        - job: test-job
+          displayName: Tes Job
+          steps:
+            - task: UsePythonVersion@0
+              inputs:
+                versionSpec: "$(python.version)"
+              displayName: "Use Python $(python.version)"
+
+            - script: |
+                python -m pip install --upgrade pip
+                pip install -r requirements.txt
+              displayName: "Install dependencies"
+
+            - script: |
+                pip install pytest pytest-azurepipelines
+                pytest
+              displayName: "pytest"
+
   - stage: emptystage
     displayName: Empty stage
 
